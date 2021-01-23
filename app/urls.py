@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/streams/', include('twitch.urls'))
+    path('api/twitch/', include('twitch.urls'))
 ]

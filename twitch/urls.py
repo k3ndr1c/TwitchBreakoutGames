@@ -5,6 +5,10 @@ from . import views
 
 app_name = 'twitch'
 
+router = DefaultRouter()
+router.register(r'stream-stats', views.StreamStatViewSet, basename='stream-stat')
+
+
 urlpatterns = [
-    # path('get-streams', views.StreamStatsRetrieve.as_view(), name='create'),
+    path('', include(router.urls))
 ]
