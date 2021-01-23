@@ -31,7 +31,6 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
-    'djcelery',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'twitch.apps.TwitchConfig',
     'corsheaders',
     'rest_framework',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -129,6 +129,10 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+# Redis
+REDIS_HOST='redis'
+REDIS_PORT=6379
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
 # Celery
 CELERY_REDIS_DB = '0'
@@ -138,8 +142,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 
 # Twitch API data
@@ -154,7 +157,3 @@ VIEWER_LOWER = 500
 VIEWER_UPPER = 5000
 
 
-# Redis
-REDIS_HOST='redis'
-REDIS_PORT=6379
-REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
