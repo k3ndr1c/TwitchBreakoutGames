@@ -131,8 +131,10 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 # Celery
-CELERY_BROKER_URL = 'amqp://'
-CELERY_ACCEPT_CONTENT = ['pickle']
+CELERY_REDIS_DB = '0'
+CELERY_BROKER_URL = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, CELERY_REDIS_DB)
+CELERY_RESULT_BACKEND = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, CELERY_REDIS_DB)
+CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
@@ -144,7 +146,15 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CLIENT_ID = 'vady69007xdupx60w6op78bq4dh8nd'
 CLIENT_SECRET = 'vk510dzemn9mym6fl5m5v1c03z6szf'
 
+
 # Selenium
 DRIVER_PATH = BASE_DIR / 'chromedriver'
 TWITCH_URL = 'https://www.twitch.tv/directory?sort=VIEWER_COUNT'
-VIEWER_LIMIT = 500
+VIEWER_LOWER = 500
+VIEWER_UPPER = 5000
+
+
+# Redis
+REDIS_HOST='redis'
+REDIS_PORT=6379
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"

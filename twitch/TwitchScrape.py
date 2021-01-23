@@ -17,16 +17,15 @@ def viewToInt(viewStr):
     return viewersInt
 
 
-def gameStats(new_soup, titlelist, viewerlimit):
+def gameStats(new_soup, titlelist, viewer_lb, viewer_ub):
     """ Gets all the games, and adds to given list """
     allGames = new_soup.findAll('div', class_='tw-card-body tw-relative')
     for game in allGames:
         title = game.find('h3', class_='tw-ellipsis tw-font-size-5 tw-line-height-body').get_text()
         viewers = game.find('p', class_='tw-c-text-alt-2 tw-ellipsis').get_text()
         viewersInt = viewToInt(viewers)
-        if viewersInt < viewerlimit:
-            break
-        titlelist.append((title, viewersInt))
+        if viewer_lb <= viewersInt <= viewer_ub:
+            titlelist.append((title, viewersInt))
 
 
 def scroll(wbdriver, timeout):
@@ -55,7 +54,10 @@ def scrape():
 
     soup = scroll(driver, 3)
     driver.quit()
-    gameStats(soup, gameList, settings.VIEWER_LIMIT)
+    gameStats(soup, gameList, settings.VIEWER_LOWER, settings.VIEWER_UPPER)
 
     return gameList
 
+
+if __name__ == "__main__":
+    print(scrape())

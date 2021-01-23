@@ -1,22 +1,61 @@
 version: "2.1"
 
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/api
+    env_file:
+      - config/dev.env
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8002:8000"
+    command: /bin/bash -c "python manage.py serve --host 0.0.0.0 --port 8000"
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: '3'
+        max-size: 1g
 
-redis:
-  image: redis:5.0.8
-  restart: unless-stopped
-  logging:
-    options:
-      max-file: '3'
-      max-size: 1g
 
-postgres:
-  image: postgres:11
-  ports:
-    - "5432:5432"
-  env_file:
-    - config/dev.env
-  restart: unless-stopped
-  logging:
-    options:
-      max-file: '3'
-      max-size: 1g
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes_from:
+      - api
+    env_file:
+      - config/dev.env
+    depends_on:
+      - postgres
+      - redis
+    command: /bin/bash -c "celery -A api.celery worker -l debug -c 2 --pidfile="
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: '3'
+        max-size: 1g
+
+  redis:
+    image: redis:5.0.8
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: '3'
+        max-size: 1g
+
+  postgres:
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    env_file:
+      - app/settings.py
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: '3'
+        max-size: 1g
