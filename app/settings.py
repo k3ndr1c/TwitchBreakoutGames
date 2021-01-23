@@ -31,7 +31,6 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
-    'djcelery',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,6 +128,19 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+# Redis
+REDIS_HOST='redis'
+REDIS_PORT=6379
+REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
+
+
+# Postgres
+POSTGRES_HOST="postgres"
+POSTGRES_PORT=5432
+POSTGRES_USER="twitchbreakoutgames"
+POSTGRES_PASSWORD="kendricandryan"
+POSTGRES_DB="twitchbreakoutgames"
+
 
 # Celery
 CELERY_REDIS_DB = '0'
@@ -138,8 +150,8 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
 
 # Twitch API data
@@ -152,9 +164,3 @@ DRIVER_PATH = BASE_DIR / 'chromedriver'
 TWITCH_URL = 'https://www.twitch.tv/directory?sort=VIEWER_COUNT'
 VIEWER_LOWER = 500
 VIEWER_UPPER = 5000
-
-
-# Redis
-REDIS_HOST='redis'
-REDIS_PORT=6379
-REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"

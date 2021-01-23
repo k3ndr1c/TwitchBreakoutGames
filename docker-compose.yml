@@ -1,35 +1,36 @@
 version: "2.1"
 
 services:
-  api:
+  # api:
+  #   image: tbg-api
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - .:/opt/api
+  #   env_file:
+  #     - app/settings.py
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   ports:
+  #     - "8002:8000"
+  #   command: /bin/bash -c "python manage.py serve --host 0.0.0.0 --port 8000"
+  #   restart: unless-stopped
+  #   logging:
+  #     options:
+  #       max-file: '3'
+  #       max-size: 1g
+
+  celery:
+    image: tbg-celery
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/opt/api
     env_file:
-      - config/dev.env
-    depends_on:
-      - postgres
-      - redis
-    ports:
-      - "8002:8000"
-    command: /bin/bash -c "python manage.py serve --host 0.0.0.0 --port 8000"
-    restart: unless-stopped
-    logging:
-      options:
-        max-file: '3'
-        max-size: 1g
-
-
-  celery:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes_from:
-      - api
-    env_file:
-      - config/dev.env
+      - app/settings.py
     depends_on:
       - postgres
       - redis
