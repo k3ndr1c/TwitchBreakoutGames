@@ -15,19 +15,12 @@ from .serializers import (
 # Create your views here.
 
 
-class BucketViewSet(viewsets.ModelViewSet):
-
-    queryset = Bucket.objects.all()
-    serializer_class = BucketSerializer
-
-
-class GameViewSet(viewsets.ModelViewSet):
-
-    queryset = Game.objects.all()
-    serializer_class = GameSerializer
-
-
 class StreamStatViewSet(viewsets.ModelViewSet):
 
     queryset = StreamStat.objects.all()
     serializer_class = StreamStatSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        bucket = Bucket.objects.latest('created_at')
+        return StreamStat.objects.filter(bucket=bucket)
