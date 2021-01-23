@@ -134,6 +134,15 @@ REDIS_HOST='redis'
 REDIS_PORT=6379
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
 
+
+# Postgres
+POSTGRES_HOST="postgres"
+POSTGRES_PORT=5432
+POSTGRES_USER="twitchbreakoutgames"
+POSTGRES_PASSWORD="kendricandryan"
+POSTGRES_DB="twitchbreakoutgames"
+
+
 # Celery
 CELERY_REDIS_DB = '0'
 CELERY_BROKER_URL = 'redis://{0}:{1}/{2}'.format(REDIS_HOST, REDIS_PORT, CELERY_REDIS_DB)
