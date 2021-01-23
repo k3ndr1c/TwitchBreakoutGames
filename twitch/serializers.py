@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from .models import Bucket, Game, StreamStat
 
-# Create your serializers here.
-
 
 class BucketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,12 +9,15 @@ class BucketSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Game
         fields = ['id', 'name']
 
 
 class StreamStatSerializer(serializers.ModelSerializer):
+    game_name = serializers.RelatedField(source='game', read_only=True)
+
     class Meta:
         model = StreamStat
-        fields = ['id', 'game', 'bucket', 'data_type', 'value']
+        fields = ['id', 'game_name', 'data_type', 'value']
