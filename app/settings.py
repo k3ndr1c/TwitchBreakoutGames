@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'twitch.apps.TwitchConfig',
     'corsheaders',
     'rest_framework',
-    'twitch'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -132,7 +132,6 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Celery
 CELERY_BROKER_URL = 'amqp://'
-
 CELERY_ACCEPT_CONTENT = ['pickle']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -145,3 +144,7 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CLIENT_ID = 'vady69007xdupx60w6op78bq4dh8nd'
 CLIENT_SECRET = 'vk510dzemn9mym6fl5m5v1c03z6szf'
 
+# Selenium
+DRIVER_PATH = BASE_DIR / 'chromedriver'
+TWITCH_URL = 'https://www.twitch.tv/directory?sort=VIEWER_COUNT'
+VIEWER_LIMIT = 500

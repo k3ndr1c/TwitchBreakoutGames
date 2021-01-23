@@ -9,7 +9,7 @@ class Bucket(models.Model):
 
 
 class Game(models.Model):
-    name = models.CharField(required=True, max_length=255)
+    name = models.CharField(max_length=255, blank=False)
 
     def __str__(self):
         return str(self.name)
