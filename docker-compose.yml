@@ -33,12 +33,25 @@ services:
     depends_on:
       - postgres
       - redis
-    command: /bin/bash -c "celery -A app.celery worker -l debug -c 1 --pidfile="
+    command: /bin/bash -c "celery -A app worker -l debug -c 1 --pidfile="
     restart: unless-stopped
     logging:
       options:
         max-file: '3'
         max-size: 1g
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /bin/bash -c "celery -A app beat -l debug -S django"
+    volumes_from:
+      - api
+    env_file:
+      - config/dev.env
+    depends_on:
+      - postgres
+      - redis
 
   redis:
     image: redis:5.0.8

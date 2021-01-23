@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+# from celery.schedules import crontab
+# import twitch
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,7 +154,13 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-
+# Celery Beat schedule
+# CELERY_BEAT_SCHEDULE = {
+#     "create_new_timebucket": {
+#         "task": "twitch.tasks.create_new_timebucket",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }
 
 # Twitch API data
 CLIENT_ID = 'vady69007xdupx60w6op78bq4dh8nd'
@@ -164,5 +172,3 @@ DRIVER_PATH = BASE_DIR / 'chromedriver'
 TWITCH_URL = 'https://www.twitch.tv/directory?sort=VIEWER_COUNT'
 VIEWER_LOWER = 500
 VIEWER_UPPER = 5000
-
-

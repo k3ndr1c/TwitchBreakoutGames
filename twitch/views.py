@@ -16,6 +16,7 @@ class StreamStatViewSet(viewsets.ModelViewSet):
     serializer_class = StreamStatSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        bucket = Bucket.objects.latest('created_at')
-        return StreamStat.objects.filter(bucket=bucket)
+        return StreamStat.objects.all()
+        # user = self.request.user
+        # bucket = Bucket.objects.latest('created_at')
+        # return StreamStat.objects.filter(bucket=bucket)
