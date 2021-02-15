@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-# from celery.schedules import crontab
+# from celery.schedule import crontab
 # import twitch
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -168,7 +168,7 @@ CLIENT_SECRET = 'vk510dzemn9mym6fl5m5v1c03z6szf'
 
 
 # Selenium
-DRIVER_PATH = BASE_DIR / 'chromedriver'
+DRIVER_PATH = str(BASE_DIR / 'chromedriver')
 TWITCH_URL = 'https://www.twitch.tv/directory?sort=VIEWER_COUNT'
 VIEWER_LOWER = 500
 VIEWER_UPPER = 5000
