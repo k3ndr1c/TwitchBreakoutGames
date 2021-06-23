@@ -5,10 +5,13 @@ django-celery-beat==2.2.0
 celery==4.4.2
 requests==2.25.1
 gunicorn==20.0.4
+psycopg2-binary==2.8.5
 
 selenium==3.141.0
 urllib3==1.25.8
+redis==3.4.1
 
 soupsieve==2.1
 beautifulsoup4==4.9.3
 bs4==0.0.1
+django-health-check==3.12.1

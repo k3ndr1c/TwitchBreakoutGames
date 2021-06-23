@@ -44,7 +44,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: /bin/bash -c "celery -A app beat -l debug -S django"
     volumes_from:
       - api
     env_file:
@@ -52,6 +51,12 @@ services:
     depends_on:
       - postgres
       - redis
+    command: /bin/bash -c "celery -A app beat -l info"
+    restart: unless-stopped
+    logging:
+      options:
+        max-file: '3'
+        max-size: 1g
 
   redis:
     image: redis:5.0.8

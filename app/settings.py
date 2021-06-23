@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 # from celery.schedule import crontab
 # import twitch
 
@@ -81,10 +82,29 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(BASE_DIR / 'db.sqlite3'),
+#     }
+# }
+
+# Postgres
+POSTGRES_HOST="postgres"
+POSTGRES_PORT=5432
+POSTGRES_USER="twitchbreakoutgames"
+POSTGRES_PASSWORD="kendricandryan"
+POSTGRES_DB="twitchbreakoutgames"
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": POSTGRES_HOST,
+        "PORT": POSTGRES_PORT,
+        "USER": POSTGRES_USER,
+        "PASSWORD": POSTGRES_PASSWORD,
+        "NAME": POSTGRES_DB,
     }
 }
 
@@ -135,14 +155,6 @@ CORS_ALLOW_CREDENTIALS = True
 REDIS_HOST='redis'
 REDIS_PORT=6379
 REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}"
-
-
-# Postgres
-POSTGRES_HOST="postgres"
-POSTGRES_PORT=5432
-POSTGRES_USER="twitchbreakoutgames"
-POSTGRES_PASSWORD="kendricandryan"
-POSTGRES_DB="twitchbreakoutgames"
 
 
 # Celery

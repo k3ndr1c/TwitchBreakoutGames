@@ -20,3 +20,5 @@ class StreamStatViewSet(viewsets.ModelViewSet):
         # user = self.request.user
         # bucket = Bucket.objects.latest('created_at')
         # return StreamStat.objects.filter(bucket=bucket)
+
+

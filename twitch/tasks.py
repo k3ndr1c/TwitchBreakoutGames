@@ -24,6 +24,7 @@ def create_new_timebucket():
     print("made it.")
     # Create new bucket
     bucket = Bucket.objects.create()
+    print("bucket")
     # Get access token
     access_token = TwitchApi.get_access_token()
     # Get important game list
@@ -33,7 +34,7 @@ def create_new_timebucket():
         game = Game.objects.get_or_create(name=name)
         print(game)
         # Query stream summary
-        active_channels, viewer_count = TwitchApi.get_stream_summary(name, access_token);
+        active_channels, viewer_count = TwitchApi.get_stream_summary(name, access_token)
         data.append((game, name, viewer_count, active_channels))
         print(data)
     # Process data and filter out which are important
@@ -42,6 +43,6 @@ def create_new_timebucket():
         if isBreakoutGame(viewer_count, active_channels):
             # Add stream data for viewcount and channels
             print("breakout!")
-            stream_stat = StreamStat.objects.create(game=game[0], name=name, type='viewcount', value=viewer_count)
-            stream_stat = StreamStat.objects.create(game=game[0], name=name, type='channels', value=active_channels)
+            stream_stat = StreamStat.objects.create(game=game[0], bucket=bucket, data_type='viewcount', value=viewer_count)
+            stream_stat = StreamStat.objects.create(game=game[0], bucket=bucket, data_type='channels', value=active_channels)
 
