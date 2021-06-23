@@ -16,8 +16,8 @@ class GameSerializer(serializers.ModelSerializer):
 
 
 class StreamStatSerializer(serializers.ModelSerializer):
-    game_name = serializers.RelatedField(source='game', read_only=True)
+    # game_name = serializers.RelatedField(source='game', read_only=True)
 
     class Meta:
         model = StreamStat
-        fields = ['id', 'game_name', 'data_type', 'value']
+        fields = ['id', 'game', 'bucket', 'data_type', 'value']
